@@ -5,11 +5,6 @@
 During a CTF, valid credentials often need to be tested against several
 services on the same target. SSH, FTP, SMB, and MySQL each require different
 commands and tools, which makes this process repetitive and easy to get wrong.
-### Problem
-
-During a CTF, valid credentials often need to be tested against several
-services on the same target. SSH, FTP, SMB, and MySQL each require different
-commands and tools, which makes this process repetitive and easy to get wrong.
 
 ### What this project solves
 
