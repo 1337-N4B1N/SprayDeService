@@ -8,6 +8,6 @@ def main() -> None:
     print(f"Username: {args.username}")
     print(f"Services: {args.services or 'all'}")
     print(f"Ports: {args.ports or 'defaults'}")
-
+    print(f"Scanning {args.services or 'all'} services on {args.ports or 'default'} ports of target {args.host} with username:{args.username} and password:{args.password}")
 if __name__=="__main__":
     main()
