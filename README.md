@@ -1,22 +1,41 @@
 ## spraydeservice
 
-CLI tool for checking one username and password against common services on one
-target. The current implementation scope is credential checking only; shell
-access and multiple targets are future features.
+### Problem
 
-### Structure
+During a CTF, valid credentials often need to be tested against several
+services on the same target. SSH, FTP, SMB, and MySQL each require different
+commands and tools, which makes this process repetitive and easy to get wrong.
 
-```text
-src/spraydeservice/
-├── __main__.py          # Installed CLI entry point
-├── cli.py               # Argument parsing and CLI orchestration
-├── targets.py           # IP validation and hostname resolution
-├── results.py           # Normalized per-service result types
-└── services/
-	├── base.py          # Service checker interface
-	└── registry.py      # Supported services and default ports
+### What this project solves
+
+`spraydeservice` provides one CLI for checking a username and password against
+common network services. The user supplies one target, which may be an IP
+address or a hostname, together with the credentials to test. Hostnames are
+resolved before the service checks run.
+
+The tool reports the result separately for every service. Valid credentials,
+invalid credentials, timeouts, unavailable services, and other connection
+errors remain distinguishable in the CLI output.
+
+### Current scope
+
+- One target per command.
+- Credential checking only; no shell access yet.
+- Supported service definitions currently include SSH, FTP, SMB, and MySQL.
+- Default ports are used unless custom ports are supplied.
+- Custom ports map positionally to the services listed with `--service`.
+- Services without a custom port use their default port.
+
+Example:
+
+```bash
+spraydeservice -H 192.168.1.10 -u alice -p password -s ssh,smb --port 2000
 ```
 
-Service-specific authentication code belongs in `services/`. Each checker
-should return a `ServiceResult` so invalid credentials, timeouts, unavailable
-services, and other connection errors remain distinguishable.
+This maps SSH to port `2000` and SMB to its default port `445`.
+
+### Future plans
+
+- Add `--shell <service_name>` to open a shell through a service after valid
+  credentials are found.
+- Add support for checking multiple targets in one command.

@@ -1,5 +1,19 @@
 import argparse
 
+from spraydeservice.parse_services import resolve_service_to_ports
+
+
+def _validate_service_port_pairing(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
+   #  Validates there are no more ports then the services specified.
+   # Remember if there are more services less ports, than remaining services goes to default ports.However if more ports, less services we throw error.
+    if args.ports and not args.services:
+        parser.error("--port requires --service to also be specified")
+
+    if args.services and args.ports and len(args.ports) > len(args.services):
+        parser.error(
+            f"Got {len(args.ports)} ports but only {len(args.services)} services — "
+            "extra ports with no matching service are not allowed"
+        )
 def _split_csv(value: str)->list[str]:
     raw_items = value.split(",")
     
@@ -61,5 +75,10 @@ def parse_arguments()->argparse.Namespace:
       help="Comma-separated list of ports, mapped positionnaly to --service"
    )
    args=parser.parse_args()
-#    _validate_service_port_pairing(parser,args)
+   _validate_service_port_pairing(parser,args)
+   if args.services:
+         try:
+            args.ports = resolve_service_to_ports(args.services, args.ports)
+         except ValueError as error:
+            parser.error(str(error))
    return args
