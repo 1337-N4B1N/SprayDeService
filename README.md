@@ -1,5 +1,5 @@
 ## spraydeservice
-
+*Note: Use the `continue` branch as its latest as of now.*
 ### Problem
 
 During a CTF, valid credentials often need to be tested against several
