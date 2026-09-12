@@ -5,6 +5,11 @@
 During a CTF, valid credentials often need to be tested against several
 services on the same target. SSH, FTP, SMB, and MySQL each require different
 commands and tools, which makes this process repetitive and easy to get wrong.
+### Problem
+
+During a CTF, valid credentials often need to be tested against several
+services on the same target. SSH, FTP, SMB, and MySQL each require different
+commands and tools, which makes this process repetitive and easy to get wrong.
 
 ### What this project solves
 
@@ -37,5 +42,5 @@ This maps SSH to port `2000` and SMB to its default port `445`.
 ### Future plans
 
 - Add `--shell <service_name>` to open a shell through a service after valid
-	credentials are found.
+  credentials are found.
 - Add support for checking multiple targets in one command.
