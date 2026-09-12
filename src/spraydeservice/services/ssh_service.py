@@ -16,7 +16,6 @@ def check_ssh(
 )->ServiceResult:
     def result(status:ResultStatus,detail:str="")->ServiceResult:
         return ServiceResult(service=SERVICE_NAME,port=port,status=status,detail=detail)
-    
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port closed or unreachable")
     
