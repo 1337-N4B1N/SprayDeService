@@ -5,6 +5,7 @@ from spraydeservice.resolve_target import resolve_target
 from spraydeservice.services.base import SprayContext
 from spraydeservice.services.ssh_service import check_ssh
 from spraydeservice.services.ftp_service import check_ftp 
+from spraydeservice.output import format_result
 def main() -> None:
     args = parse_arguments()
     
@@ -30,10 +31,10 @@ def main() -> None:
     for service, port in zip(args.services, args.ports):
         if service == "ssh":
             result = check_ssh(context, port)
-            print(f"[{result.status.value}] ssh:{result.port} — {result.detail or 'OK'}")
+            print(format_result(result))
         elif service=="ftp":
             result=check_ftp(context,port)
-            print(f"[{result.status.value}] ftp:{result.port} - {result.detail or 'OK'} ")
+            print(format_result(result))
         else:
             print(f"[skipped] {service}:{port} — not implemented yet")
 

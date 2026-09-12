@@ -8,7 +8,11 @@ from spraydeservice.services.base import(
 SERVICE_NAME="ftp"
 def check_ftp(context:SprayContext,port:int)->ServiceResult:
     def result(status:ResultStatus,detail:str="")->ServiceResult:
-        return ServiceResult(service=SERVICE_NAME,port=port,status=status,detail=detail)
+        return ServiceResult(service=SERVICE_NAME,port=port,
+        status=status,detail=detail)
+    print(f"--------------------------------------------------------")
+
+    print(f"Checking FTP:")
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port closed or unreachable")
 
