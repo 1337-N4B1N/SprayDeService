@@ -11,10 +11,9 @@ def check_ftp(context:SprayContext,port:int)->ServiceResult:
         return ServiceResult(service=SERVICE_NAME,port=port,
         status=status,detail=detail)
     print(f"--------------------------------------------------------")
-
     print(f"Checking FTP:")
     if not is_port_open(context.host,port,context.timeout):
-        return result(ResultStatus.NETWORK_ERROR,"Port closed or unreachable")
+        return result(ResultStatus.NETWORK_ERROR,"Port is closed or unreachable")
 
     ftp=FTP()
     try:
