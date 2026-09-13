@@ -1,5 +1,5 @@
-## spraydeservice
-*Note: Use the `continue` branch as its latest as of now.*
+# spraydeservice
+One stop solution for testing credentials across different services.
 
 ### How to use
 
