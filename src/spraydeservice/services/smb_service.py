@@ -11,8 +11,8 @@ SERVICE_NAME="smb"
 def check_smb(context:SprayContext,port:int)->ServiceResult:
     def result(status:ResultStatus,detail:str="")->ServiceResult:
         return ServiceResult(service=SERVICE_NAME,port=port,status=status,detail=detail)
-    print(f"--------------------------------------------------------")
-    print(f"Checking SMB:")
+    # print(f"*" *58)     #No need of this and below line as we have implemented this on cli.py itself with concurrency
+    # print(f"Checking SMB:")
 
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port closed or unreachable")
