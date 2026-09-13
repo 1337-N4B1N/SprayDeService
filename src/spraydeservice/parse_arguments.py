@@ -1,6 +1,6 @@
 import argparse
 
-from spraydeservice.parse_services import resolve_service_to_ports
+from spraydeservice.parse_services import SERVICE_DEFAULTS, resolve_service_to_ports
 
 
 def _validate_service_port_pairing(parser: argparse.ArgumentParser, args: argparse.Namespace) -> None:
@@ -76,7 +76,12 @@ def parse_arguments()->argparse.Namespace:
    )
    args=parser.parse_args()
    _validate_service_port_pairing(parser,args)
-   if args.services:
+   if args.services is None:
+         args.services = list(SERVICE_DEFAULTS)
+         args.ports = resolve_service_to_ports(args.services, None)
+   elif not args.services:
+         parser.error("--service must contain at least one service")
+   else:
          try:
             args.ports = resolve_service_to_ports(args.services, args.ports)
          except ValueError as error:
