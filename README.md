@@ -72,7 +72,8 @@ errors remain distinguishable in the CLI output.
 
 - One target per command.
 - Credential checking only; no shell access yet.
-- Supported service definitions currently include SSH, FTP, SMB, and MySQL.
+- Implemented services currently include SSH, FTP, SMB, MySQL, WinRM,
+  PostgreSQL, and MSSQL.
 - Default ports are used unless custom ports are supplied.
 - Custom ports map positionally to the services listed with `--service`.
 - Services without a custom port use their default port.
