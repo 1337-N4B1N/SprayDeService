@@ -34,6 +34,12 @@ def check_smb(context:SprayContext,port:int)->ServiceResult:
         return result(ResultStatus.NETWORK_ERROR,str(error))
     except OSError as error:
         return result(ResultStatus.NETWORK_ERROR,str(error))
+    except Exception as error:
+        return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
-        conn.close()
+        
+        try:
+            conn.close()
+        except Exception:
+            pass
   

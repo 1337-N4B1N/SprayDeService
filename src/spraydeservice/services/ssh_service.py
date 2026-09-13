@@ -37,6 +37,11 @@ def check_ssh(
         return result(ResultStatus.AUTH_FAILED,"Authentication Failed")
     except(paramiko.SSHException,OSError)as error:
         return result(ResultStatus.NETWORK_ERROR,str(error))
+    except Exception as error:
+        return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
+      try:
         client.close()
+      except Exception:
+          pass
  

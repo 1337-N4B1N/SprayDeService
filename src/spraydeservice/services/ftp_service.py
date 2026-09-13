@@ -24,7 +24,13 @@ def check_ftp(context:SprayContext,port:int)->ServiceResult:
         return result(ResultStatus.AUTH_FAILED,str(error))
     except OSError as error:
         return result(ResultStatus.NETWORK_ERROR,str(error))
+    except Exception as error:
+        return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
-        ftp.close()
+
+        try:
+            ftp.close()
+        except Exception:
+            pass
        
     
