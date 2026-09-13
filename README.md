@@ -53,8 +53,8 @@ Press `Ctrl+C` once to cancel a running scan and exit.
 
 ### Problem Statement
 
-During a CTF, valid credentials often need to be tested against several
-services on the same target. SSH, FTP, SMB, and MySQL each require different
+During a CTF/Pentesting, valid credentials often need to be tested against several
+services on the same target. SSH, FTP, SMB, and MySQL each of which require different
 commands and tools, which makes this process repetitive and easy to get wrong.
 
 ### What this project solves
