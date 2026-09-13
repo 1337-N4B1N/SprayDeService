@@ -42,7 +42,7 @@ def check_mysql(context:SprayContext,port:int)->ServiceResult:
     finally:
          if connection is not None:
               try:
-                connection.close
+               connection.close()
               except Exception:
                 pass
 

@@ -21,10 +21,10 @@ def check_ssh(
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port is closed or unreachable")
     
-    client=paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-
+    client = None
     try:
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect(
             hostname=context.host,
             port=port,
@@ -40,8 +40,9 @@ def check_ssh(
     except Exception as error:
         return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
-      try:
-        client.close()
-      except Exception:
-          pass
+            if client is not None:
+                try:
+                    client.close()
+                except Exception:
+                        pass
  

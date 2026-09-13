@@ -1,6 +1,57 @@
 ## spraydeservice
 *Note: Use the `continue` branch as its latest as of now.*
-### Problem
+
+### How to use
+
+### Installation
+
+From the project directory, install the tool with uv:
+
+```bash
+uv tool install . --force
+```
+
+After installation, use the `spraydeservice` command from any directory.
+
+### Command-line usage
+
+The basic syntax is:
+
+```bash
+spraydeservice -u <username> -p <password> -H <host>
+```
+
+When no service is specified, the command checks every service in the default
+service list. Implemented services are checked against their default ports;
+services that are not implemented yet are reported as `not implemented`.
+
+For example:
+
+```bash
+spraydeservice -u alice -p password -H 192.168.1.10
+```
+
+To select specific services, use `-s` or `--service` with a comma-separated
+list:
+
+```bash
+spraydeservice -u alice -p password -H 192.168.1.10 -s ssh,ftp,smb
+```
+
+Custom ports are mapped positionally to the selected services. Services after
+the supplied ports use their default ports:
+
+```bash
+spraydeservice -u alice -p password -H 192.168.1.10 \
+  -s ssh,ftp,smb --port 2000,2121
+```
+
+This checks SSH on port `2000`, FTP on port `2121`, and SMB on its default port
+`445`.
+
+Press `Ctrl+C` once to cancel a running scan and exit.
+
+### Problem Statement
 
 During a CTF, valid credentials often need to be tested against several
 services on the same target. SSH, FTP, SMB, and MySQL each require different

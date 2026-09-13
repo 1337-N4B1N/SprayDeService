@@ -15,8 +15,9 @@ def check_ftp(context:SprayContext,port:int)->ServiceResult:
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port is closed or unreachable")
 
-    ftp=FTP()
+    ftp = None
     try:
+        ftp = FTP()
         ftp.connect(host=context.host,port=port,timeout=context.timeout)
         ftp.login(user=context.username,passwd=context.password)
         return result(ResultStatus.SUCCESS)
@@ -27,10 +28,10 @@ def check_ftp(context:SprayContext,port:int)->ServiceResult:
     except Exception as error:
         return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
-
-        try:
-            ftp.close()
-        except Exception:
-            pass
+        if ftp is not None:
+            try:
+                ftp.close()
+            except Exception:
+                pass
        
     

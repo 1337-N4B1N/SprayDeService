@@ -17,15 +17,16 @@ def check_smb(context:SprayContext,port:int)->ServiceResult:
     if not is_port_open(context.host,port,context.timeout):
         return result(ResultStatus.NETWORK_ERROR,"Port closed or unreachable")
 
-    conn=SMBConnection(
-        context.username,
-        context.password,
-        "spraydeservice",
-        context.host,
-        use_ntlm_v2=True,
-        is_direct_tcp=True,
-    )
+    conn = None
     try:
+        conn=SMBConnection(
+            context.username,
+            context.password,
+            "spraydeservice",
+            context.host,
+            use_ntlm_v2=True,
+            is_direct_tcp=True,
+        )
         connected=conn.connect(context.host,port,timeout=context.timeout)
         if connected:
             return result(ResultStatus.SUCCESS)
@@ -37,9 +38,9 @@ def check_smb(context:SprayContext,port:int)->ServiceResult:
     except Exception as error:
         return result(ResultStatus.NETWORK_ERROR, f"Unexpected error: {error}")
     finally:
-        
-        try:
-            conn.close()
-        except Exception:
-            pass
+        if conn is not None:
+            try:
+                conn.close()
+            except Exception:
+                pass
   
