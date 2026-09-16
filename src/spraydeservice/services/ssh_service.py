@@ -31,6 +31,8 @@ def check_ssh(
             username=context.username,
             password=context.password,
             timeout=context.timeout,
+            allow_agent=False,
+            look_for_keys=False,
         )
         return result(ResultStatus.SUCCESS)
     except paramiko.AuthenticationException:
